@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatisshiro.demo.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="mybatisshiro.demo.vo.Role">
+    <id column="rid" jdbcType="VARCHAR" property="rid" />
+    <result column="rname" jdbcType="VARCHAR" property="rname" />
+    <result column="roledescription" jdbcType="VARCHAR" property="roledescription" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rid, rname, roledescription, uid, pid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where rid = #{rid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from role
+    where rid = #{rid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="mybatisshiro.demo.vo.Role">
+    insert into role (rid, rname, roledescription, 
+      uid, pid)
+    values (#{rid,jdbcType=VARCHAR}, #{rname,jdbcType=VARCHAR}, #{roledescription,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mybatisshiro.demo.vo.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="rname != null">
+        rname,
+      </if>
+      <if test="roledescription != null">
+        roledescription,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=VARCHAR},
+      </if>
+      <if test="rname != null">
+        #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="roledescription != null">
+        #{roledescription,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="mybatisshiro.demo.vo.Role">
+    update role
+    <set>
+      <if test="rname != null">
+        rname = #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="roledescription != null">
+        roledescription = #{roledescription,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mybatisshiro.demo.vo.Role">
+    update role
+    set rname = #{rname,jdbcType=VARCHAR},
+      roledescription = #{roledescription,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=VARCHAR}
+  </update>
+</mapper>
